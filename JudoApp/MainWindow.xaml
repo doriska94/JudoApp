@@ -1,0 +1,53 @@
+﻿<Window x:Class="JudoApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JudoApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel  VerticalAlignment="Center" HorizontalAlignment="Center">
+
+            <Rectangle
+                  Name="MyRectangle"
+                  Width="188" 
+                  Height="188">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/user.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBox Text="Arseni Boss" FontSize="62" BorderBrush="Transparent"  FontFamily="Cascadia Code"/>
+        </StackPanel>
+        <Grid x:Name="stk" Visibility="Visible" >
+            <Grid.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="Transparent"/>
+                    <GradientStop x:Name="col" Color="White" Offset="0"/>
+                </RadialGradientBrush>
+            </Grid.Background>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="Grid.MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                      Storyboard.TargetName="col" 
+                      Storyboard.TargetProperty="Offset"
+                      From="0" To="2.0" Duration="0:0:2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Grid.MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+       Storyboard.TargetName="col" 
+       Storyboard.TargetProperty="Offset"
+       From="2" To="0" Duration="0:0:2"  />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
+        </Grid>
+    </Grid>
+</Window>
