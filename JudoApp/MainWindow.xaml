@@ -17,19 +17,19 @@
                     <ImageBrush ImageSource="/user.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <TextBox Text="Arseni Boss" FontSize="62" BorderBrush="Transparent"  FontFamily="Cascadia Code"/>
+            <TextBox x:Name="tet" Text="Arseni Boss" FontSize="62" BorderBrush="Transparent"  FontFamily="Cascadia Code"/>
         </StackPanel>
-        <Grid x:Name="stk" Visibility="Visible" >
-            <Grid.Background>
+        <local:FraxGrid x:Name="stk" Visibility="Visible" >
+            <local:FraxGrid.Background>
                 <RadialGradientBrush>
                     <GradientStop Color="Transparent"/>
                     <GradientStop x:Name="col" Color="White" Offset="0"/>
                 </RadialGradientBrush>
-            </Grid.Background>
-            <Grid.Triggers>
-                <EventTrigger RoutedEvent="Grid.MouseEnter">
-                    <BeginStoryboard>
-                        <Storyboard>
+            </local:FraxGrid.Background>
+            <local:FraxGrid.Triggers>
+                <EventTrigger RoutedEvent="local:FraxGrid.OnShowStoryboard">
+                    <BeginStoryboard x:Name="showMebmerStoryboard">
+                        <Storyboard Completed="Storyboard_Completed">
                             <DoubleAnimation
                       Storyboard.TargetName="col" 
                       Storyboard.TargetProperty="Offset"
@@ -37,17 +37,17 @@
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
-                <EventTrigger RoutedEvent="Grid.MouseLeave">
-                    <BeginStoryboard>
+                <EventTrigger RoutedEvent="local:FraxGrid.OnHideStoryboard">
+                    <BeginStoryboard x:Name="hideMebmerStoryboard">
                         <Storyboard>
                             <DoubleAnimation
-       Storyboard.TargetName="col" 
-       Storyboard.TargetProperty="Offset"
-       From="2" To="0" Duration="0:0:2"  />
+                               Storyboard.TargetName="col" 
+                               Storyboard.TargetProperty="Offset"
+                               From="2" To="0" Duration="0:0:2"  />
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
-            </Grid.Triggers>
-        </Grid>
+            </local:FraxGrid.Triggers>
+        </local:FraxGrid>
     </Grid>
 </Window>
