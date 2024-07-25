@@ -12,8 +12,8 @@ using Stempel.Infrastructure;
 namespace Stempel.Infrastructure.Migrations
 {
     [DbContext(typeof(StampContext))]
-    [Migration("20240725154956_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240725170917_stampTime")]
+    partial class stampTime
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,9 @@ namespace Stempel.Infrastructure.Migrations
 
             modelBuilder.Entity("Stempel.Domain.Model.Member", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreateTime")
                         .HasColumnType("datetime(6)");
@@ -50,7 +48,7 @@ namespace Stempel.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("State")
+                    b.Property<int>("LastState")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdateTime")
@@ -59,6 +57,48 @@ namespace Stempel.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Members");
+                });
+
+            modelBuilder.Entity("Stempel.Domain.Model.StampTime", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid>("MemberId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("StampState")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("UpdateTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MemberId");
+
+                    b.ToTable("StampTime");
+                });
+
+            modelBuilder.Entity("Stempel.Domain.Model.StampTime", b =>
+                {
+                    b.HasOne("Stempel.Domain.Model.Member", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Member");
                 });
 #pragma warning restore 612, 618
         }

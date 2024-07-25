@@ -2,14 +2,14 @@
 using Stempel.Domain.Repositories;
 
 namespace Stempel.Domain.Services;
-public class GetChipCode : IGetChipCode
+public class RFIDChipCode : IGetChipCode
 {
     private INotifyChipFoundHandler _chipFoundHandler;
     private IMemberRepository _memberRepository;
     private IReciveKeyInput _reciveKeyInput;
     private List<int> _keyCode = new();
 
-    public GetChipCode(INotifyChipFoundHandler chipFoundHandler, IMemberRepository memberRepository, IReciveKeyInput reciveKeyInput)
+    public RFIDChipCode(INotifyChipFoundHandler chipFoundHandler, IMemberRepository memberRepository, IReciveKeyInput reciveKeyInput)
     {
         _chipFoundHandler = chipFoundHandler;
         _memberRepository = memberRepository;

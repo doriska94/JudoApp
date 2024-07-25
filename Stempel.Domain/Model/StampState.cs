@@ -1,7 +1,7 @@
 ﻿
 namespace Stempel.Domain.Model;
 
-public enum State
+public enum StampState
 {
     Arrived,
     Levead

@@ -11,7 +11,7 @@ using Stempel.Infrastructure;
 
 namespace Stempel.Infrastructure.Migrations
 {
-    [DbContext(typeof(MemberContext))]
+    [DbContext(typeof(StampContext))]
     [Migration("20240725160153_changeIdType")]
     partial class changeIdType
     {

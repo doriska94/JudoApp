@@ -7,10 +7,10 @@ using System.Diagnostics;
 namespace Stempel.Infrastructure;
 public class MemberRepository : IMemberRepository
 {
-    private readonly MemberContext _memberContext;
+    private readonly StampContext _memberContext;
     private DbSet<Member> _membersDbSet;
 
-    public MemberRepository(MemberContext memberContext)
+    public MemberRepository(StampContext memberContext)
     {
         _memberContext = memberContext;
         _membersDbSet = _memberContext.Members;
@@ -46,10 +46,10 @@ public class MemberRepository : IMemberRepository
 
     public async Task ChangeStateAsync(Member member)
     {
-        if (member.State == State.Levead)
-            member.State = State.Arrived;
+        if (member.LastState == StampState.Levead)
+            member.LastState = StampState.Arrived;
         else
-            member.State = State.Levead;
+            member.LastState = StampState.Levead;
 
         await SaveAsync(member);
     }
