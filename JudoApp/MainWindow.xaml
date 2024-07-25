@@ -17,7 +17,7 @@
                     <ImageBrush ImageSource="/user.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <TextBox x:Name="tet" Text="Arseni Boss" FontSize="62" BorderBrush="Transparent"  FontFamily="Cascadia Code"/>
+            <TextBox x:Name="memberText" Text="Arseni Boss" FontSize="62" BorderBrush="Transparent"  FontFamily="Cascadia Code"/>
         </StackPanel>
         <local:FraxGrid x:Name="stk" Visibility="Visible" >
             <local:FraxGrid.Background>
@@ -29,7 +29,7 @@
             <local:FraxGrid.Triggers>
                 <EventTrigger RoutedEvent="local:FraxGrid.OnShowStoryboard">
                     <BeginStoryboard x:Name="showMebmerStoryboard">
-                        <Storyboard Completed="Storyboard_Completed">
+                        <Storyboard Completed="StoryboardCompleted">
                             <DoubleAnimation
                       Storyboard.TargetName="col" 
                       Storyboard.TargetProperty="Offset"

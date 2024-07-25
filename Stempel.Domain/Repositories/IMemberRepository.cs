@@ -3,5 +3,8 @@
 namespace Stempel.Domain.Repositories;
 public interface IMemberRepository
 {
-    Member Get(string code);
+    Task<Member> CreateAsync();
+    Task<Member?> GetOrDefaultAsync(string code);
+    Task SaveAsync(Member member);
+    Task ChangeStateAsync(Member member);
 }

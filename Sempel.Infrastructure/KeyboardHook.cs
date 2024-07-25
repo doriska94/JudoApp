@@ -23,14 +23,14 @@ public sealed class KeyboardHook
 
     private delegate nint KeyboardProcess(int nCode, nint wParam, nint lParam);
 
-    public static event EventHandler<KeyPressedEventArgs> KeyPressed;
+    public static event EventHandlerAsync<KeyPressedEventArgs> KeyPressed;
     private const int _wH_KEYBOARD = 13;
-    private static readonly KeyboardProcess keyboardProc = HookCallback;
+    private static readonly KeyboardProcess _keyboardProc = HookCallback;
     private static nint _hookID = nint.Zero;
 
     public static void CreateHook()
     {
-        _hookID = SetHook(keyboardProc);
+        _hookID = SetHook(_keyboardProc);
     }
 
     public static void DisposeHook()
@@ -54,7 +54,7 @@ public sealed class KeyboardHook
             int vkCode = Marshal.ReadInt32(lParam);
 
             if (KeyPressed != null)
-                KeyPressed(null, new KeyPressedEventArgs(vkCode));
+                KeyPressed(null, new KeyPressedEventArgs(vkCode)).Wait();
         }
         return CallNextHookEx(_hookID, nCode, wParam, lParam);
     }

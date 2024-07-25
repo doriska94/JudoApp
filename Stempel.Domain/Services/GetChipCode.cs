@@ -25,9 +25,13 @@ public class GetChipCode : IGetChipCode
     {
         _reciveKeyInput.CodeReaded -= OnKeyRecived;
     }
-    private void OnKeyRecived(object sender, string code)
+    private async Task OnKeyRecived(object? sender, string code)
     {
-        var member = _memberRepository.Get(code);
+        var member = await _memberRepository.GetOrDefaultAsync(code);
+        if(member == null)
+            return;
+
+        await _memberRepository.ChangeStateAsync(member);
         _chipFoundHandler.Notify(member);
     }
 }

@@ -1,30 +1,56 @@
-﻿using Stempel.Domain.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Stempel.Domain.Model;
 using Stempel.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Stempel.Infrastructure;
 public class MemberRepository : IMemberRepository
 {
-    private List<Member> _members = new()
-    {
-        new Member()
-        {
-            Id = 1,
-            CreateTime = DateTime.Now,
-            UpdateTime = DateTime.Now,
-            State = State.Levead,
-            FirstName = "Nikole",
-            IsDeleted = false,
-            Key ="1912896549"
-        }
-    };
-    public Member Get(string code)
-    {
-        return _members.Where(x => x.Key == code).Single();
+    private readonly MemberContext _memberContext;
+    private DbSet<Member> _membersDbSet;
 
+    public MemberRepository(MemberContext memberContext)
+    {
+        _memberContext = memberContext;
+        _membersDbSet = _memberContext.Members;
+    }
+
+    public async Task<Member?> GetOrDefaultAsync(string code)
+    {
+        Debug.Print("Code: " + code);
+        await Task.CompletedTask;
+        var lsit = _membersDbSet.Where(x => x.Key == code).ToList();
+        return lsit.SingleOrDefault();
+    }
+
+    public async Task<Member> CreateAsync()
+    {
+        var member = new Member()
+        {
+            Id = Guid.NewGuid(),
+            CreateTime = DateTime.Now,
+            IsDeleted= false,
+            UpdateTime= DateTime.Now,
+        };
+        await Task.CompletedTask;
+        _membersDbSet.Add(member);
+        return member;
+    }
+
+    public async Task SaveAsync(Member member)
+    {
+        await Task.CompletedTask;
+        _memberContext.SaveChanges();
+    }
+
+    public async Task ChangeStateAsync(Member member)
+    {
+        if (member.State == State.Levead)
+            member.State = State.Arrived;
+        else
+            member.State = State.Levead;
+
+        await SaveAsync(member);
     }
 }
