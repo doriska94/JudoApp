@@ -5,7 +5,7 @@ namespace JudoApp.Services;
 public class Configurations
 {
     private static AppSettings AppSettings => GetSettings("appsettings.json");
-    private static AppSettings UserSecrets => GetSettings("appsettings.userSecrets.json");
+    private static AppSettings UserSecrets => GetSettings("appsettings.UserSecrets.json");
     public static string GetDefaultConectionString()
     {
         return GetSettings().ConnectionStrings.DefaultConection;
