@@ -1,11 +1,6 @@
 ﻿using Stempel.Domain;
 using Stempel.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 
 namespace Stempel.Infrastructure;
@@ -24,7 +19,7 @@ public class ReciveKeyInput : IReciveKeyInput
     {
         char digit = Convert.ToChar(GetKeyValueNormalized(e.Info));
 
-        if (_chars.Count > 0 && _chars[_chars.Count -1] == '\r' && digit == '\r')
+        if (_chars.Count > 0 && _chars[_chars.Count - 1] == '\r' && digit == '\r')
         {
             var code = new StringBuilder();
             for (int i = 0; i < _chars.Count - 1; i += 2)

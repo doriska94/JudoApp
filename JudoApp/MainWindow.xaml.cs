@@ -1,9 +1,7 @@
 ﻿using JudoApp.Services;
 using Stempel.Domain.Model;
-using Stempel.Domain.Repositories;
 using Stempel.Domain.Services;
 using Stempel.Infrastructure;
-using System.Configuration;
 using System.Windows;
 
 namespace JudoApp;
@@ -21,7 +19,7 @@ public partial class MainWindow : Window
 
         var b = new ChipFoundNotifeyer();
         b.OnChipFound += OnChipFound;
-        
+
         var a = new RFIDChipCode(b, memberRepository, new ReciveKeyInput());
         a.Enable();
     }
@@ -30,7 +28,7 @@ public partial class MainWindow : Window
     {
         _stampTimeRepository.AddNow(member);
 
-        memberText.Text = ( member.LastState == StampState.Arrived? "Hi ":"By By ") + member.FirstName;
+        memberText.Text = (member.LastState == StampState.Arrived ? "Hi " : "By By ") + member.FirstName;
         showMebmerStoryboard.Storyboard.Begin();
     }
 

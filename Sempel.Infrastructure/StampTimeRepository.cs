@@ -13,7 +13,7 @@ public class StampTimeRepository(StampContext context) : IStampTimeRepository
         var stampTimes = _context.StampTime.Where(x => x.Member == member).OrderBy(x => x.Time).ToArray();
 
         await Task.CompletedTask;
-        
+
         return stampTimes;
     }
     public Task AddNow(Member member)

@@ -1,8 +1,7 @@
-﻿using static System.Runtime.CompilerServices.RuntimeHelpers;
+﻿using Stempel.Domain;
+using Stempel.Domain.Repositories;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using Stempel.Domain;
-using Stempel.Domain.Repositories;
 
 namespace Stempel.Infrastructure;
 

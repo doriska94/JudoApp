@@ -1,10 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JudoApp.Services;
 public class Configurations
@@ -29,5 +24,5 @@ public class AppSettings
 }
 public class ConnectionStrings
 {
-    public string DefaultConection {  get; set; }
+    public string DefaultConection { get; set; }
 }

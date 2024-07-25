@@ -7,4 +7,5 @@ public interface IMemberRepository
     Task<Member?> GetOrDefaultAsync(string code);
     Task SaveAsync(Member member);
     Task ChangeStateAsync(Member member);
+    Task<Member[]> GetAllArrivedMembersAsync();
 }

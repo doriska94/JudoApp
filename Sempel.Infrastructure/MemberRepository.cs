@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Stempel.Domain.Model;
 using Stempel.Domain.Repositories;
 using System.Diagnostics;
@@ -16,12 +15,19 @@ public class MemberRepository : IMemberRepository
         _membersDbSet = _memberContext.Members;
     }
 
+    public async Task<Member[]> GetAllArrivedMembersAsync()
+    {
+        var members = _membersDbSet.Where(x => x.LastState == StampState.Arrived).ToArray();
+        await Task.CompletedTask;
+        return members;
+    }
+
     public async Task<Member?> GetOrDefaultAsync(string code)
     {
         Debug.Print("Code: " + code);
         await Task.CompletedTask;
-        var lsit = _membersDbSet.Where(x => x.Key == code).ToList();
-        return lsit.SingleOrDefault();
+        var member = _membersDbSet.Where(x => x.Key == code).ToList();
+        return member.SingleOrDefault();
     }
 
     public async Task<Member> CreateAsync()
@@ -30,8 +36,8 @@ public class MemberRepository : IMemberRepository
         {
             Id = Guid.NewGuid(),
             CreateTime = DateTime.Now,
-            IsDeleted= false,
-            UpdateTime= DateTime.Now,
+            IsDeleted = false,
+            UpdateTime = DateTime.Now,
         };
         await Task.CompletedTask;
         _membersDbSet.Add(member);

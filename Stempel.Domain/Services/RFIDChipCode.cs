@@ -1,5 +1,4 @@
-﻿using Stempel.Domain.Model;
-using Stempel.Domain.Repositories;
+﻿using Stempel.Domain.Repositories;
 
 namespace Stempel.Domain.Services;
 public class RFIDChipCode : IGetChipCode
@@ -28,7 +27,7 @@ public class RFIDChipCode : IGetChipCode
     private async Task OnKeyRecived(object? sender, string code)
     {
         var member = await _memberRepository.GetOrDefaultAsync(code);
-        if(member == null)
+        if (member == null)
             return;
 
         await _memberRepository.ChangeStateAsync(member);
