@@ -4,29 +4,29 @@ using System.Runtime.InteropServices;
 using Stempel.Domain;
 using Stempel.Domain.Repositories;
 
-namespace Sempel.Infrastructure;
+namespace Stempel.Infrastructure;
 
-public sealed class KeyboardHook 
+public sealed class KeyboardHook
 {
     [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-    private static extern IntPtr SetWindowsHookEx(int idHook, KeyboardProcess lpfn, IntPtr hMod, uint dwThreadId);
+    private static extern nint SetWindowsHookEx(int idHook, KeyboardProcess lpfn, nint hMod, uint dwThreadId);
 
     [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-    private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
+    private static extern nint CallNextHookEx(nint hhk, int nCode, nint wParam, nint lParam);
 
     [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-    private static extern IntPtr GetModuleHandle(string lpModuleName);
+    private static extern nint GetModuleHandle(string lpModuleName);
 
     [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool UnhookWindowsHookEx(IntPtr hhk);
+    private static extern bool UnhookWindowsHookEx(nint hhk);
 
-    private delegate IntPtr KeyboardProcess(int nCode, IntPtr wParam, IntPtr lParam);
+    private delegate nint KeyboardProcess(int nCode, nint wParam, nint lParam);
 
     public static event EventHandler<KeyPressedEventArgs> KeyPressed;
     private const int _wH_KEYBOARD = 13;
     private static readonly KeyboardProcess keyboardProc = HookCallback;
-    private static IntPtr _hookID = IntPtr.Zero;
+    private static nint _hookID = nint.Zero;
 
     public static void CreateHook()
     {
@@ -38,7 +38,7 @@ public sealed class KeyboardHook
         UnhookWindowsHookEx(_hookID);
     }
 
-    private static IntPtr SetHook(KeyboardProcess keyboardProc)
+    private static nint SetHook(KeyboardProcess keyboardProc)
     {
         using (Process currentProcess = Process.GetCurrentProcess())
         using (ProcessModule currentProcessModule = currentProcess.MainModule)
@@ -47,7 +47,7 @@ public sealed class KeyboardHook
         }
     }
 
-    private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
+    private static nint HookCallback(int nCode, nint wParam, nint lParam)
     {
         if (nCode >= 0)
         {

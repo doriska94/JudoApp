@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sempel.Infrastructure;
+namespace Stempel.Infrastructure;
 public class MemberRepository : IMemberRepository
 {
     private List<Member> _members = new()

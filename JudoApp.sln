@@ -5,9 +5,9 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JudoApp", "JudoApp\JudoApp.csproj", "{C9BC9213-AA8F-4E20-A95A-968F770C8429}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stempel.Domain", "Stempel.Domain\Stempel.Domain.csproj", "{E869F4C3-DBA5-42BB-8CD4-48875BB48196}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stempel.Domain", "Stempel.Domain\Stempel.Domain.csproj", "{E869F4C3-DBA5-42BB-8CD4-48875BB48196}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sempel.Infrastructure", "Sempel.Infrastructure\Sempel.Infrastructure.csproj", "{27920A16-0319-4E85-B59A-59BEE7CD3D8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stempel.Infrastructure", "Sempel.Infrastructure\Stempel.Infrastructure.csproj", "{27920A16-0319-4E85-B59A-59BEE7CD3D8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

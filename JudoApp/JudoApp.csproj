@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sempel.Infrastructure\Sempel.Infrastructure.csproj" />
+    <ProjectReference Include="..\Sempel.Infrastructure\Stempel.Infrastructure.csproj" />
     <ProjectReference Include="..\Stempel.Domain\Stempel.Domain.csproj" />
   </ItemGroup>
 

@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 using System.Windows;
 
 
-namespace Sempel.Infrastructure;
+namespace Stempel.Infrastructure;
 public class ReciveKeyInput : IReciveKeyInput
 {
     public event EventHandler<string> CodeReaded;
     private List<char> _chars = new();
     public void CreateHook()
     {
-        
+
         KeyboardHook.CreateHook();
         KeyboardHook.KeyPressed += KeyPressed;
     }
@@ -27,11 +27,11 @@ public class ReciveKeyInput : IReciveKeyInput
         if (digit == '\r')
         {
             var code = new StringBuilder();
-            for (int i = 0; i < _chars.Count; i+=2)
+            for (int i = 0; i < _chars.Count; i += 2)
             {
                 code.Append(_chars[i]);
             }
-            
+
             CodeReaded?.Invoke(sender, code.ToString());
             _chars.Clear();
         }
