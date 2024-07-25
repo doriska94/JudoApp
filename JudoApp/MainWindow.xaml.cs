@@ -8,32 +8,43 @@ namespace JudoApp;
 public partial class MainWindow : Window
 {
     private StampTimeRepository _stampTimeRepository;
+    private readonly ChipFoundNotifyer _notifyer;
+    private readonly StampContext _context;
+    private readonly RFIDChipCode _RFIDService;
+
     public MainWindow()
     {
         InitializeComponent();
-        var context = new StampContext(Configurations.GetDefaultConectionString());
-        _stampTimeRepository = new StampTimeRepository(context);
 
-        var _stampRepository = _stampTimeRepository;
-        var memberRepository = new MemberRepository(context);
+        _context = new StampContext(Configurations.GetDefaultConectionString());
 
-        var b = new ChipFoundNotifeyer();
-        b.OnChipFound += OnChipFound;
+        _stampTimeRepository = new StampTimeRepository(_context);
+        var memberRepository = new MemberRepository(_context);
 
-        var a = new RFIDChipCode(b, memberRepository, new ReciveKeyInput());
-        a.Enable();
+        _notifyer = new ChipFoundNotifyer();
+        _notifyer.OnChipFound += OnChipFound;
+
+        _RFIDService = new RFIDChipCode(_notifyer, memberRepository, new ReciveKeyInput());
+        _RFIDService.Enable();
     }
 
     private void OnChipFound(Member member)
     {
         _stampTimeRepository.AddNow(member);
 
-        memberText.Text = (member.LastState == StampState.Arrived ? "Hi " : "By By ") + member.FirstName;
-        showMebmerStoryboard.Storyboard.Begin();
+        memberText.Text = (member.LastState == StampState.Arrived ? "Hi " : "Bye Bye ") + member.FirstName;
+        showMemberStoryboard.Storyboard.Begin();
     }
 
     private void StoryboardCompleted(object? sender, EventArgs e)
     {
-        hideMebmerStoryboard.Storyboard.Begin();
+        hideMemberStoryboard.Storyboard.Begin();
+    }
+
+    private void OnWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+        _RFIDService.Disable();
+        _notifyer.OnChipFound -= OnChipFound;
+        _context.Dispose();
     }
 }

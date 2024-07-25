@@ -1,7 +1,7 @@
 ﻿using Stempel.Domain.Model;
 
 namespace Stempel.Domain.Services;
-public class ChipFoundNotifeyer : INotifyChipFound, INotifyChipFoundHandler
+public class ChipFoundNotifyer : INotifyChipFound, INotifyChipFoundHandler
 {
     public event OnChipFound OnChipFound;
 

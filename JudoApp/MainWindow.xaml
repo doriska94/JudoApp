@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JudoApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Closing="OnWindowClosing">
     <Grid>
         <StackPanel  VerticalAlignment="Center" HorizontalAlignment="Center">
 
@@ -28,7 +28,7 @@
             </local:FraxGrid.Background>
             <local:FraxGrid.Triggers>
                 <EventTrigger RoutedEvent="local:FraxGrid.OnShowStoryboard">
-                    <BeginStoryboard x:Name="showMebmerStoryboard">
+                    <BeginStoryboard x:Name="showMemberStoryboard">
                         <Storyboard Completed="StoryboardCompleted">
                             <DoubleAnimation
                       Storyboard.TargetName="col" 
@@ -38,7 +38,7 @@
                     </BeginStoryboard>
                 </EventTrigger>
                 <EventTrigger RoutedEvent="local:FraxGrid.OnHideStoryboard">
-                    <BeginStoryboard x:Name="hideMebmerStoryboard">
+                    <BeginStoryboard x:Name="hideMemberStoryboard">
                         <Storyboard>
                             <DoubleAnimation
                                Storyboard.TargetName="col" 

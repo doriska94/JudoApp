@@ -3,12 +3,13 @@
 namespace Stempel.Domain.Services;
 public class RFIDChipCode : IGetChipCode
 {
-    private INotifyChipFoundHandler _chipFoundHandler;
-    private IMemberRepository _memberRepository;
-    private IReciveKeyInput _reciveKeyInput;
-    private List<int> _keyCode = new();
-
-    public RFIDChipCode(INotifyChipFoundHandler chipFoundHandler, IMemberRepository memberRepository, IReciveKeyInput reciveKeyInput)
+    private readonly INotifyChipFoundHandler _chipFoundHandler;
+    private readonly IMemberRepository _memberRepository;
+    private readonly IReciveKeyInput _reciveKeyInput;
+    public bool IsRunning { get; private set; }
+    public RFIDChipCode(INotifyChipFoundHandler chipFoundHandler, 
+                        IMemberRepository memberRepository, 
+                        IReciveKeyInput reciveKeyInput)
     {
         _chipFoundHandler = chipFoundHandler;
         _memberRepository = memberRepository;
@@ -19,11 +20,16 @@ public class RFIDChipCode : IGetChipCode
     {
         _reciveKeyInput.CreateHook();
         _reciveKeyInput.CodeReaded += OnKeyRecived;
+        IsRunning = true;
     }
-    public void OnDisable()
+
+    public void Disable()
     {
         _reciveKeyInput.CodeReaded -= OnKeyRecived;
+        _reciveKeyInput.DisposeHook();
+        IsRunning = false;
     }
+
     private async Task OnKeyRecived(object? sender, string code)
     {
         var member = await _memberRepository.GetOrDefaultAsync(code);
